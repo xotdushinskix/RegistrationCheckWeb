@@ -20,8 +20,10 @@ import java.sql.SQLException;
  * Created by FromxSoul on 22.05.2016.
  */
 @WebServlet("/Controller")
-public class Controller extends HttpServlet {
-
+public class Controller extends Forward {
+    private static String START_PAGE = "/index.jsp";
+    private static String REPEAT_LOGIN = "/loginRepeat.jsp";
+    private static String OK_PAGE = "/ok.jsp";
     private Factory factory = Factory.getInstance();
     private CustomerDao customerDao = factory.getCustomerDao();
     private CompanyDao companyDao = factory.getCompanyDao();
@@ -34,8 +36,7 @@ public class Controller extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HibernateUtil.getSessionFactory();
         request.getParameter("action");
-            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-            requestDispatcher.forward(request, response);
+            super.forward(START_PAGE, request, response);
     }
 
 
@@ -49,19 +50,25 @@ public class Controller extends HttpServlet {
 
         if (request.getParameter("site_enter") !=null) {
             try {
-                customer = customerDao.getCustomer(customerLogin);
-                String password = customer.getPassword();
-                if (password.equals(customerPassword)) {
-                    request.setAttribute("companies", companyDao.getAllCompanies());
-                    RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/ok.jsp");
-                    requestDispatcher.forward(request, response);
-                } else {
-                    RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/loginRepeat.jsp");
-                    requestDispatcher.forward(request, response);
+                try {
+                    customer = customerDao.getCustomer(customerLogin);
+                } catch (Exception e) {
+                    super.forward(REPEAT_LOGIN, request, response);
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+                try {
+                    String password = customer.getPassword();
+                    if (password.equals(customerPassword)) {
+                        request.setAttribute("companies", companyDao.getAllCompanies());
+                        super.forward(OK_PAGE, request, response);
+                    } else {
+                        super.forward(REPEAT_LOGIN, request, response);
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                } catch (Exception e) {
+                    super.forward(REPEAT_LOGIN, request, response);
+                }
         }
     }
 }

@@ -1,26 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="MySQL - balyus@localhost" uuid="ea1bc6ed-3ddd-4dfa-862e-33ae80d805c5">
-    <database-info product="MySQL" version="5.5.49" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+  <data-source name="MySQL - registration@localhost" uuid="64dc2593-4e83-40c7-8179-833e987124af">
+    <database-info product="MySQL" version="5.6.27-0ubuntu1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
     </database-info>
-    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
-    <schema name="" catalog="balyus"/>
-    <table name="company" schema="" catalog="balyus" type="TABLE">
-      <column name="company_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="city_location" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="company_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="company_specific" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="company_id"/>
-    </table>
-    <table name="customer" schema="" catalog="balyus" type="TABLE">
-      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="first_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="last_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="customer_id"/>
-    </table>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.5">
+      <schema id="1" name="registration"/>
+      <table id="2" parent="1" name="company"/>
+      <table id="3" parent="1" name="customer"/>
+      <column id="4" parent="2" name="company_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="5" parent="2" name="city_location">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="6" parent="2" name="company_name">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="7" parent="2" name="company_specific">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <key id="8" parent="2" name="PRIMARY">
+        <columns>company_id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="9" parent="3" name="login">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="10" parent="3" name="first_name">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="11" parent="3" name="last_name">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="12" parent="3" name="password">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <key id="13" parent="3" name="PRIMARY">
+        <columns>login</columns>
+        <primary>1</primary>
+      </key>
+    </database-model>
   </data-source>
 </component>

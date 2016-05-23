@@ -13,10 +13,6 @@
 <body>
   <h3>Sorry, your password or login is invalid. Please, try again.</h3>
   <a href="Controller?action=try_again">Try again</a>
-  <%--<form action="Controller" method="post">--%>
-    <%--Login: <input type="text" name="login">--%>
-    <%--Password: <input type="password" name="password">--%>
-    <%--<input type="submit" name="site_enter" value="Login">--%>
   </form>
 </body>
 </html>
